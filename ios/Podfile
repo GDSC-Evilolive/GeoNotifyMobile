@@ -27,7 +27,8 @@ end
 
 target 'GeoNotify' do
   config = use_native_modules!
-
+  use_frameworks! :linkage => :static
+  $RNFirebaseAsStaticFramework = true
   use_react_native!(
     :path => config[:reactNativePath],
     # Enables Flipper.
@@ -42,6 +43,9 @@ target 'GeoNotify' do
   target 'GeoNotifyTests' do
     inherit! :complete
     # Pods for testing
+    pod 'RNScreens', :path => '../node_modules/react-native-screens'
+    pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+    pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
   end
 
   post_install do |installer|
