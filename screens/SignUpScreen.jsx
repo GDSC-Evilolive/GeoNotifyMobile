@@ -51,12 +51,14 @@ const SignUpScreen = () => {
             value={name}
             onChangeText={value => setName(value)}
             placeholder="Enter Name"
+            autoCapitalize="none"
           />
           <Text>Email </Text>
           <TextInput
             value={email}
             onChangeText={value => setEmail(value)}
             placeholder="Enter Email"
+            autoCapitalize="none"
           />
           <Text>Password</Text>
           <TextInput
@@ -64,6 +66,7 @@ const SignUpScreen = () => {
             onChangeText={value => setPassword(value)}
             placeholder="Enter Password"
             secureTextEntry
+            autoCapitalize="none"
           />
           <TouchableOpacity onPress={handleSubmit}>
             <Text>SignUp</Text>
