@@ -1,94 +1,63 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import 'react-native-gesture-handler';
+import React, {useState, useEffect} from 'react';
+import {View, Text, TextInput, SafeAreaView} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
+import HomeScreen from './screens/HomeScreen';
+import WelcomeScreen from './screens/WelcomeScreen';
+import SignUpScreen from './screens/SignUpScreen';
+import LoginScreen from './screens/LoginScreen';
+import HomeNavigation from './navigation/HomeNavigation';
+import SettingsScreen from './screens/SettingsScreen';
 
-import React, {useState} from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-import {auth} from './firebase';
-import {createUserWithEmailAndPassword} from 'firebase/auth';
 import useAuth from './hooks/useAuth';
 
-/* 
-    TODO:
-    Created small signup page to check 
-    functionality of authentication
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
-    Later will change to add routes
-*/
 function App() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const {user} = useAuth();
-  const handleSubmit = async () => {
-    if (email && password) {
-      try {
-        await createUserWithEmailAndPassword(auth, email, password);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
   if (!user) {
     return (
-      <View>
-        <SafeAreaView>
-          <View>
-            <Text>Email</Text>
-            <TextInput
-              placeholder="Enter Email"
-              value={email}
-              onChangeText={value => setEmail(value)}
-              autoCapitalize="none"
-            />
-            <Text>Password</Text>
-            <TextInput
-              placeholder="Enter Password"
-              value={password}
-              onChangeText={value => setPassword(value)}
-              secureTextEntry
-              autoCapitalize="none"
-            />
-            <TouchableOpacity onPress={handleSubmit}>
-              <Text>Sign Up</Text>
-            </TouchableOpacity>
-          </View>
-        </SafeAreaView>
-      </View>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Welcome"
+            component={WelcomeScreen}
+            // options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUpScreen}
+            // options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Login"
+            component={LoginScreen}
+            // options={{headerShown: false}}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
     );
   } else {
+    // console.log(user.uid);
+
     return (
-      <View>
-        <SafeAreaView>
-          <Text>Hello {user.email}</Text>
-        </SafeAreaView>
-      </View>
+      <>
+        <NavigationContainer>
+          <Tab.Navigator>
+            <Tab.Screen
+              name="Home"
+              component={HomeNavigation}
+              options={{headerShown: false}}
+            />
+            <Tab.Screen name="Settings" component={SettingsScreen} />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </>
     );
   }
 }
-
-const styles = StyleSheet.create({});
 
 export default App;
