@@ -26,7 +26,7 @@ const SignUpScreen = () => {
         await createUserWithEmailAndPassword(auth, email, password);
         const user = auth.currentUser;
         axios
-          .post('http://localhost:8000/api/user/create', {
+          .post('http://localhost:3002/users/createNew', {
             name: name,
             email: email,
             uid: user.uid,
