@@ -16,7 +16,8 @@ import {useNavigation} from '@react-navigation/native';
 
 // library.add(faArrowLeft);
 const SignUpScreen = () => {
-  const [name, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
@@ -46,10 +47,17 @@ const SignUpScreen = () => {
     <View>
       <SafeAreaView>
         <View>
-          <Text>Name</Text>
+          <Text>First Name</Text>
           <TextInput
-            value={name}
-            onChangeText={value => setName(value)}
+            value={firstName}
+            onChangeText={value => setFirstName(value)}
+            placeholder="Enter Name"
+            autoCapitalize="none"
+          />
+          <Text>Last Name</Text>
+          <TextInput
+            value={lastName}
+            onChangeText={value => setLastName(value)}
             placeholder="Enter Name"
             autoCapitalize="none"
           />
