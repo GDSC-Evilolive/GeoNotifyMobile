@@ -28,7 +28,8 @@ const SignUpScreen = () => {
         const user = auth.currentUser;
         axios
           .post('http://localhost:3002/users/createNew', {
-            name: name,
+            first_name: firstName,
+            last_name: lastName,
             email: email,
             uid: user.uid,
           })
