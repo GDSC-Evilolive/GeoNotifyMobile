@@ -12,6 +12,7 @@ import HomeNavigation from './navigation/HomeNavigation';
 import SettingsScreen from './screens/SettingsScreen';
 
 import useAuth from './hooks/useAuth';
+import CreateReminderScreen from './screens/CreateReminderScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -51,6 +52,10 @@ function App() {
               name="Home"
               component={HomeNavigation}
               options={{headerShown: false}}
+            />
+            <Tab.Screen
+              name="CreateReminder"
+              component={CreateReminderScreen}
             />
             <Tab.Screen name="Settings" component={SettingsScreen} />
           </Tab.Navigator>
