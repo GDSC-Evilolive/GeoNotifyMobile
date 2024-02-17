@@ -10,7 +10,7 @@ import SignUpScreen from './screens/SignUpScreen';
 import LoginScreen from './screens/LoginScreen';
 import HomeNavigation from './navigation/HomeNavigation';
 import SettingsScreen from './screens/SettingsScreen';
-
+import TabBar from './componenets/TabBar';
 import useAuth from './hooks/useAuth';
 
 const Tab = createBottomTabNavigator();
@@ -46,7 +46,7 @@ function App() {
     return (
       <>
         <NavigationContainer>
-          <Tab.Navigator>
+          <Tab.Navigator tabBar={TabBar}>
             <Tab.Screen
               name="Home"
               component={HomeNavigation}
