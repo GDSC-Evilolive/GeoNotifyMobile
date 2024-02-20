@@ -56,6 +56,7 @@ function App() {
             <Tab.Screen
               name="CreateReminder"
               component={CreateReminderScreen}
+              options={{headerShown: false}}
             />
             <Tab.Screen name="Settings" component={SettingsScreen} />
           </Tab.Navigator>
