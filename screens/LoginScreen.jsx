@@ -56,10 +56,7 @@ const LoginScreen = () => {
               secureTextEntry
               style={styles.textInput}
             />
-            <TouchableOpacity
-              onPress={handleSignIn}
-              style={styles.loginButton}
-              disabled={disabled}>
+            <TouchableOpacity onPress={handleSignIn} style={styles.loginButton}>
               <Text style={styles.loginText}>Login</Text>
             </TouchableOpacity>
           </View>
