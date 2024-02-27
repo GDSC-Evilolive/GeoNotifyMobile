@@ -9,8 +9,7 @@ import WelcomeScreen from './screens/WelcomeScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import LoginScreen from './screens/LoginScreen';
 import HomeNavigation from './navigation/HomeNavigation';
-import SettingsScreen from './screens/SettingsScreen';
-
+import SettingsNavigation from './navigation/SettingsNavigation';
 import useAuth from './hooks/useAuth';
 
 const Tab = createBottomTabNavigator();
@@ -52,7 +51,11 @@ function App() {
               component={HomeNavigation}
               options={{headerShown: false}}
             />
-            <Tab.Screen name="Settings" component={SettingsScreen} />
+            <Tab.Screen
+              name="Settings"
+              component={SettingsNavigation}
+              options={{headerShown: false}}
+            />
           </Tab.Navigator>
         </NavigationContainer>
       </>
