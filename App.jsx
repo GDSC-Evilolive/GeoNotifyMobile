@@ -10,8 +10,10 @@ import SignUpScreen from './screens/SignUpScreen';
 import LoginScreen from './screens/LoginScreen';
 import HomeNavigation from './navigation/HomeNavigation';
 import SettingsScreen from './screens/SettingsScreen';
+import CreateReminderScreen from './screens/CreateReminderScreen';
 
 import useAuth from './hooks/useAuth';
+import CustomTabBar from './components/CustomTabBar';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -23,18 +25,13 @@ function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
-            name="Welcome"
-            component={WelcomeScreen}
-            // options={{headerShown: false}}
+            name="Login"
+            component={LoginScreen}
+            options={{headerShown: false}}
           />
           <Stack.Screen
             name="SignUp"
             component={SignUpScreen}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="Login"
-            component={LoginScreen}
             options={{headerShown: false}}
           />
         </Stack.Navigator>
@@ -44,18 +41,42 @@ function App() {
     // console.log(user.uid);
 
     return (
-      <>
+      <SafeAreaView style={{flex: 1, marginBottom: 20}}>
         <NavigationContainer>
-          <Tab.Navigator>
+          <Tab.Navigator tabBar={props => <CustomTabBar {...props} />}>
             <Tab.Screen
               name="Home"
               component={HomeNavigation}
-              options={{headerShown: false}}
+              options={{
+                tabBarLabel: 'Home',
+                headerShown: false,
+                activeIcon: require('./assets/home-active.png'),
+                inactiveIcon: require('./assets/home-inactive.png'),
+              }}
             />
-            <Tab.Screen name="Settings" component={SettingsScreen} />
+            <Tab.Screen
+              name="Create Reminders"
+              component={CreateReminderScreen}
+              options={{
+                tabBarLabel: 'Create Reminders',
+                headerShown: false,
+                activeIcon: require('./assets/create-icon.png'),
+                inactiveIcon: require('./assets/create-icon.png'),
+              }}
+            />
+            <Tab.Screen
+              name="Settings"
+              component={SettingsScreen}
+              options={{
+                tabBarLabel: 'Profile',
+                headerShown: false,
+                activeIcon: require('./assets/profile-active.png'),
+                inactiveIcon: require('./assets/profile-inactive.png'),
+              }}
+            />
           </Tab.Navigator>
         </NavigationContainer>
-      </>
+      </SafeAreaView>
     );
   }
 }
