@@ -36,7 +36,7 @@ export const signUpScreenDark = StyleSheet.create({
     backgroundColor: '#FFF',
     height: 48,
     borderRadius: 10,
-    borderColor: 'BBBBC5',
+    borderColor: '#BBBBC5',
     borderWidth: 1,
     paddingVertical: 14,
     paddingHorizontal: 18,

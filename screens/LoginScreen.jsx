@@ -29,6 +29,7 @@ const LoginScreen = () => {
 
   const [showContent, setShowContent] = useState(false);
   const opacity = useState(new Animated.Value(0))[0];
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -47,6 +48,13 @@ const LoginScreen = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (err) {
+      if (err.code === 'auth/wrong-password') {
+        setError('Incorrect password. Please try again.');
+      } else if (err.code === 'auth/user-not-found') {
+        setError('Email not found. Please check your email or sign up.');
+      } else {
+        setError('An unexpected error occurred. Please try again later.');
+      }
       console.log(err);
     }
   };
@@ -86,7 +94,7 @@ const LoginScreen = () => {
                     <Text style={styles.loginText}>Login</Text>
                   </TouchableOpacity>
                 </View>
-
+                {error && <Text style={{color:"red"}}>{error}</Text>}
                 <View style={styles.signupContainer}>
                   <Text style={styles.text}>Don't have an account?</Text>
                   <TouchableOpacity

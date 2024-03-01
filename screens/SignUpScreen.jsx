@@ -27,8 +27,23 @@ const SignUpScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
+  const [error, setError] = useState(null);
+
+  const validateEmail = email => {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  };
+
   const handleSubmit = async () => {
     if (email && password) {
+      if (password.length < 6) {
+        setError('Password must be at least 6 characters long');
+        return;
+      }
+      if (!validateEmail(email)) {
+        setError('Invalid email format');
+        return;
+      }
       try {
         await createUserWithEmailAndPassword(auth, email, password);
         const user = auth.currentUser;
@@ -93,6 +108,7 @@ const SignUpScreen = () => {
               style={styles.textInput}
               placeholderTextColor={'#6A6A73'}
             />
+             {error && <Text style={{color:"red"}}>{error}</Text>}
             <TouchableOpacity
               onPress={handleSubmit}
               style={styles.signUpButton}>
