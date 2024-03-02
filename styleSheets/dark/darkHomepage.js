@@ -166,6 +166,7 @@ export const darkHomepage = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent:'space-between',
+        paddingTop: 15,
         paddingLeft: 15,
     },
     logoFlex:{

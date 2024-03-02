@@ -26,7 +26,7 @@ const MapHomepage = ({ metadata }) => {
                                 style={styles.dashboardIcon}
                                 source={require('../assets/today-icon.png')}
                                 />
-                            <Text style={styles.dashboardText}> {metadata.numInactive} </Text>
+                            <Text style={[styles.dashboardText, {fontSize:20}, {fontWeight:'600'}]}> {metadata.numInactive} </Text>
                         </View>
                         <Text style={styles.dashboardText}> Today </Text>
                     </View>
@@ -36,7 +36,7 @@ const MapHomepage = ({ metadata }) => {
                                 style={styles.dashboardIcon}
                                 source={require('../assets/scheduled-icon.png')}
                                 />
-                            <Text style={styles.dashboardText}> {metadata.numActive} </Text>
+                            <Text style={[styles.dashboardText, {fontSize:20}, {fontWeight:'600'}]}> {metadata.numActive} </Text>
                         </View>
                         <Text style={styles.dashboardText}> Scheduled </Text>
                     </View>
@@ -46,7 +46,7 @@ const MapHomepage = ({ metadata }) => {
                                 style={styles.dashboardIcon}
                                 source={require('../assets/locations-icon.png')}
                                 />
-                            <Text style={styles.dashboardText}> {metadata.numLocations} </Text>
+                            <Text style={[styles.dashboardText, {fontSize:20}, {fontWeight:'600'}]}> {metadata.numLocations} </Text>
                         </View>
                         <Text style={styles.dashboardText}> Locations</Text>
                     </View>

@@ -7,17 +7,20 @@ import {
   TouchableOpacity,
   Text,
   SafeAreaView,
+  useColorScheme
 } from 'react-native';
 
 const screenWidth = Dimensions.get('window').width;
 
 const CustomTabBar = ({state, descriptors, navigation}) => {
+  const theme = useColorScheme();
+  const backgroundColor = theme === 'dark' ? '#181823' : 'white';
   return (
     <View
       style={{
         flexDirection: 'row',
-        backgroundColor: 'transparent',
-        height: 80,
+        backgroundColor: backgroundColor,
+        height: 120,
         width: screenWidth,
       }}>
       {/* Render tab bar background image */}
@@ -25,7 +28,7 @@ const CustomTabBar = ({state, descriptors, navigation}) => {
         source={require('../assets/tab-bar-background.png')}
         style={{
           position: 'absolute',
-          bottom: -40,
+          bottom: -20,
           left: 0,
           right: 0,
           width: screenWidth,
