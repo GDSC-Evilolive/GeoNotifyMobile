@@ -27,6 +27,7 @@ export const loginScreenDark = StyleSheet.create({
   signupText: {
     color: '#A4D3D7',
     fontSize: 15,
+    textDecorationLine: 'underline',
   },
   title: {
     color: '#EFF3F5',

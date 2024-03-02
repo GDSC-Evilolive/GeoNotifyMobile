@@ -48,10 +48,10 @@ const LoginScreen = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (err) {
-      if (err.code === 'auth/wrong-password') {
-        setError('Incorrect password. Please try again.');
-      } else if (err.code === 'auth/user-not-found') {
-        setError('Email not found. Please check your email or sign up.');
+      if (err.code === 'auth/invalid-credential') {
+        setError('Unable to login. Please try again or sign up.');
+      } else if (err.code == 'auth/invalid-email') {
+        setError('Invalid email. Please try again or sign up.')
       } else {
         setError('An unexpected error occurred. Please try again later.');
       }
@@ -94,7 +94,7 @@ const LoginScreen = () => {
                     <Text style={styles.loginText}>Login</Text>
                   </TouchableOpacity>
                 </View>
-                {error && <Text style={{color:"red"}}>{error}</Text>}
+                {error && <Text style={{color:"red", marginTop: 15}}>{error}</Text>}
                 <View style={styles.signupContainer}>
                   <Text style={styles.text}>Don't have an account?</Text>
                   <TouchableOpacity

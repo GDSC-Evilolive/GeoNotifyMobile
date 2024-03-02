@@ -35,6 +35,14 @@ const SignUpScreen = () => {
   };
 
   const handleSubmit = async () => {
+    if (!firstName || !lastName || !email || !password) {
+      setError('All fields are required');
+      return;
+    }
+    if (!validateEmail(email)) {
+      setError('Invalid email format');
+      return;
+    }
     if (email && password) {
       if (password.length < 6) {
         setError('Password must be at least 6 characters long');
@@ -48,7 +56,7 @@ const SignUpScreen = () => {
         await createUserWithEmailAndPassword(auth, email, password);
         const user = auth.currentUser;
         axios
-          .post('http://localhost:3002/users/createNew', {
+          .post('https://gdsc-geonotify.wl.r.appspot.com/createUser', {
             first_name: firstName,
             last_name: lastName,
             email: email,
