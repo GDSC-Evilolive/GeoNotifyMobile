@@ -45,7 +45,7 @@ export const signUpScreenLight = StyleSheet.create({
   signUpButton: {
     height: 48,
     width: '100%',
-    backgroundColor: '#BBBBC5',
+    backgroundColor: '#537FE7',
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',

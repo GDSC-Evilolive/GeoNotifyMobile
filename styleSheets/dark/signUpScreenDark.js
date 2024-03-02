@@ -45,14 +45,14 @@ export const signUpScreenDark = StyleSheet.create({
   signUpButton: {
     height: 48,
     width: '100%',
-    backgroundColor: '#BBBBC5',
+    backgroundColor: '#537FE7',
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 10,
   },
   signUpText: {
-    color: 'black',
+    color: 'white',
     fontSize: 16,
   },
   text: {

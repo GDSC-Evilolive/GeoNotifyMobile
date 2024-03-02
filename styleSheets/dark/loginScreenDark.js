@@ -56,7 +56,7 @@ export const loginScreenDark = StyleSheet.create({
     marginBottom: 25,
   },
   loginButton: {
-    backgroundColor: '#BBBBC5',
+    backgroundColor: '#537FE7',
     height: 48,
     borderRadius: 10,
 
@@ -64,4 +64,7 @@ export const loginScreenDark = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  loginText: {
+    color: "#FFFF",
+  }
 });

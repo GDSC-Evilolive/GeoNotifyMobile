@@ -28,7 +28,6 @@ const SignUpScreen = () => {
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
   const [error, setError] = useState(null);
-
   const validateEmail = email => {
     const re = /\S+@\S+\.\S+/;
     return re.test(email);
