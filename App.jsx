@@ -21,7 +21,7 @@ const Stack = createStackNavigator();
 
 const MainTabs = () => {
   return (
-    <Tab.Navigator tabBar={props => <CustomTabBar {...props} /> }>
+    <Tab.Navigator tabBar={props => <CustomTabBar {...props} currentScreen={props.state.routeNames[props.state.index]} /> }>
       <Tab.Screen
         name="Home"
         component={HomeScreen}

@@ -12,15 +12,25 @@ import {
 
 const screenWidth = Dimensions.get('window').width;
 
-const CustomTabBar = ({state, descriptors, navigation}) => {
+const CustomTabBar = ({ state, descriptors, navigation, currentScreen }) => {
   const theme = useColorScheme();
-  const backgroundColor = theme === 'dark' ? '#181823' : 'white';
+  const isDarkMode = theme === 'dark';
+  const tabBarBackgroundColor =
+  currentScreen === 'Home'
+    ? isDarkMode
+      ? '#181823' 
+      : 'white' 
+    : isDarkMode
+    ? '#181823'
+    : '#EFF3F5';
+  const tabBarTextColor = isDarkMode ? '#FFFFFF' : '#537FE7';
+
   return (
     <View
       style={{
         flexDirection: 'row',
-        backgroundColor: backgroundColor,
-        height: 120,
+        backgroundColor: tabBarBackgroundColor,
+        height: 129,
         width: screenWidth,
       }}>
       {/* Render tab bar background image */}
@@ -28,19 +38,18 @@ const CustomTabBar = ({state, descriptors, navigation}) => {
         source={require('../assets/tab-bar-background.png')}
         style={{
           position: 'absolute',
-          bottom: -20,
+          bottom: 0,
           left: 0,
           right: 0,
           width: screenWidth,
-          height: 90,
+          height: 80,
           resizeMode: 'cover',
         }}
       />
       {/* Render individual tab buttons */}
       {state.routes.map((route, index) => {
-        const {options} = descriptors[route.key];
-        const label =
-          options.tabBarLabel !== undefined ? options.tabBarLabel : route.name;
+        const { options } = descriptors[route.key];
+        const label = options.tabBarLabel !== undefined ? options.tabBarLabel : route.name;
         const isFocused = state.index === index;
 
         // Handle tab press
@@ -70,7 +79,7 @@ const CustomTabBar = ({state, descriptors, navigation}) => {
               },
               route.name === 'Create Reminders' && {
                 position: 'relative',
-                bottom: 45,
+                bottom: 52,
               },
             ]}
             disabled={isFocused} // Disable touchable part if tab is active
@@ -87,7 +96,7 @@ const CustomTabBar = ({state, descriptors, navigation}) => {
               {route.name !== 'Create Reminders' && (
                 <Text
                   style={{
-                    color: isFocused ? '#537FE7' : '#FFFFFF',
+                    color: isFocused ? tabBarTextColor : '#FFFFFF',
                     marginTop: 5,
                   }}>
                   {label}

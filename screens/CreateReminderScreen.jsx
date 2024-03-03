@@ -122,29 +122,31 @@ const CreateReminderScreen = () => {
             </View>
             <View style={styles.dateContainer}>
               <View style={styles.headerContainer}>
-                <View style={styles.justifyCenter}>
+                <View style={styles.iconContainer}>
                   <Image
-                    source={require('../assets/date-icon.png')}
-                    style={{
-                      width: 32,
-                      height: 32,
-                      resizeMode: 'cover',
-                    }} 
-                  />
-                  <Text style={styles.sectionTitle}>Date</Text>
-                  {dateOpen ? (
-                    <Text style={styles.sectionSubTitle}>
-                      {date.toDateString()}
-                    </Text>
-                  ) : null}
+                      source={require('../assets/date-icon.png')}
+                      style={{
+                        width: 32,
+                        height: 32,
+                        resizeMode: 'cover',
+                      }} 
+                    />
+                  <View style={styles.justifyCenter}>
+                    <Text style={styles.sectionTitle}>Date</Text>
+                    {dateOpen ? (
+                      <Text style={styles.sectionSubTitle}>
+                        {date.toDateString()}
+                      </Text>
+                    ) : null}
+                  </View>
                 </View>
-                <Switch
-                  value={dateOpen}
-                  onValueChange={() => {
-                    setDateOpen(!dateOpen);
-                  }}
-                  style={styles.toggleButton}
-                />
+                  <Switch
+                    value={dateOpen}
+                    onValueChange={() => {
+                      setDateOpen(!dateOpen);
+                    }}
+                    style={styles.toggleButton}
+                  />
               </View>
               <Collapsible collapsed={!dateOpen}>
                 <Calendar
@@ -159,21 +161,23 @@ const CreateReminderScreen = () => {
                   style={styles.calendar}
                 />
                 <View style={styles.headerContainer}>
-                  <View style={styles.justifyCenter}>
-                  <Image
-                      source={require('../assets/time-icon.png')}
-                      style={{
-                        width: 32,
-                        height: 32,
-                        resizeMode: 'cover',
-                      }} 
-                    />
-                    <Text style={styles.sectionTitle}>Time</Text>
-                    {timeOpen ? (
-                      <Text style={styles.sectionSubTitle}>
-                        {date.getHours()}:{date.getMinutes()}
-                      </Text>
-                    ) : null}
+                  <View style={styles.iconContainer}>
+                    <Image
+                        source={require('../assets/time-icon.png')}
+                        style={{
+                          width: 32,
+                          height: 32,
+                          resizeMode: 'cover',
+                        }} 
+                      />
+                    <View style={styles.justifyCenter}>
+                      <Text style={styles.sectionTitle}>Time</Text>
+                      {timeOpen ? (
+                        <Text style={styles.sectionSubTitle}>
+                          {date.getHours()}:{date.getMinutes()}
+                        </Text>
+                      ) : null}
+                    </View>
                   </View>
                   <Switch
                     value={timeOpen}
@@ -193,8 +197,8 @@ const CreateReminderScreen = () => {
                 </Collapsible>
 
                 <View style={styles.headerContainer}>
-                  <View style={styles.justifyCenter}>
-                      <Image
+                  <View style={styles.iconContainer}>
+                    <Image
                       source={require('../assets/repeat-icon.png')}
                       style={{
                         width: 32,
@@ -202,7 +206,9 @@ const CreateReminderScreen = () => {
                         resizeMode: 'cover',
                       }} 
                     />
-                    <Text style={styles.sectionTitle}>Repeat</Text>
+                    <View style={styles.justifyCenter}>
+                      <Text style={styles.sectionTitle}>Repeat</Text>
+                    </View>
                   </View>
                   <Switch
                     value={repeatOpen}
@@ -223,7 +229,7 @@ const CreateReminderScreen = () => {
 
             <View style={styles.locationContainer}>
               <View style={styles.headerContainer}>
-                <View style={styles.justifyCenter}>
+                <View style={styles.iconContainer}>
                   <Image
                     source={require('../assets/location-icon.png')}
                     style={{
@@ -232,7 +238,9 @@ const CreateReminderScreen = () => {
                       resizeMode: 'cover',
                     }} 
                   />
-                  <Text style={styles.sectionTitle}>Location</Text>
+                  <View style={styles.justifyCenter}>
+                    <Text style={styles.sectionTitle}>Location</Text>
+                  </View>
                 </View>
                 <Switch style={styles.toggleButton} />
               </View>

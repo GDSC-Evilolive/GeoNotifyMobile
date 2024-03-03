@@ -61,6 +61,10 @@ const createReminderScreenDark = StyleSheet.create({
     padding: 12,
     justifyContent: 'space-between',
   },
+  iconContainer: {
+    flexDirection: 'row',
+    gap: 12,
+  },
   sectionTitle: {
     color: '#6A6A73',
     fontSize: 18,
@@ -86,9 +90,8 @@ const createReminderScreenDark = StyleSheet.create({
   },
   justifyCenter: {
     justifyContent: 'center',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12
+    flexDirection: 'column',
+    alignItems: 'start',
   },
   createReminder: {
     width: '100%',
