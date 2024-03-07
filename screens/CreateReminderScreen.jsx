@@ -10,7 +10,7 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
-import React, {useReducer, useState, useRef} from 'react';
+import React, {useReducer, useState, useRef, useEffect} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import {Dropdown} from 'react-native-element-dropdown';
@@ -40,6 +40,8 @@ const CreateReminderScreen = () => {
   const [dateOpen, setDateOpen] = useState(false);
   const [timeOpen, setTimeOpen] = useState(false);
   const [repeatOpen, setRepeatOpen] = useState(false);
+  const [activeDate, setActiveDate] = useState(null);
+  const [locationEnabled, setLocationEnabled] = useState(false);
   const [error, setError] = useState('');
   const repeatData = [
     {key: 'never', value: 'Never', disabled: false},
@@ -48,6 +50,15 @@ const CreateReminderScreen = () => {
     {key: 'weekends', value: 'Weekends', disabled: false},
     {key: 'weekly', value: 'Weekly', disabled: false},
   ];
+
+  useEffect(() => {
+    const today = new Date();
+    // Adjust for time zone offset
+    today.setDate(today.getDate() - 1); // Add 1 day to get the correct date
+    const dateString = today.toISOString().split('T')[0];
+    setActiveDate(dateString);
+  }, []);
+
   const createReminder = () => {
     if (!title.trim()) {
       setError('Title is required');
@@ -149,17 +160,22 @@ const CreateReminderScreen = () => {
                   />
               </View>
               <Collapsible collapsed={!dateOpen}>
-                <Calendar
-                  onDayPress={day => {
-                    let d = new Date();
-                    d.setFullYear(day.year, day.month - 1, day.day);
-                    d.setHours(date.getHours(), date.getMinutes());
-                    setDate(d);
-                    console.log(day);
-                    console.log(d);
-                  }}
-                  style={styles.calendar}
-                />
+              <Calendar
+                onDayPress={day => {
+                  let d = new Date();
+                  d.setFullYear(day.year, day.month - 1, day.day);
+                  d.setHours(date.getHours(), date.getMinutes());
+                  setDate(d);
+                  setActiveDate(day.dateString); // Update the active date
+                  console.log(day);
+                  console.log(d);
+                }}
+                markedDates={{
+                  [activeDate]: { selected: true, selectedColor: '#0C79FE' }
+                }}
+                style={styles.calendar}
+              />
+
                 <View style={styles.headerContainer}>
                   <View style={styles.iconContainer}>
                     <Image
@@ -242,8 +258,38 @@ const CreateReminderScreen = () => {
                     <Text style={styles.sectionTitle}>Location</Text>
                   </View>
                 </View>
-                <Switch style={styles.toggleButton} />
+                <Switch
+                  value={locationEnabled}
+                  onValueChange={() => setLocationEnabled(!locationEnabled)}
+                  style={styles.toggleButton}
+                />
               </View>
+              {locationEnabled && (
+                <View style={styles.locationButtonsContainer}>
+                  <TouchableOpacity onPress={() => {}} style={{gap: 8}}>
+                    <Image
+                      source={require('../assets/current-button.png')}
+                      style={{
+                        width: 50,
+                        height: 50,
+                        resizeMode: 'cover',
+                      }} 
+                    />
+                    <Text >Current</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => {}} style={{gap: 8}}>
+                    <Image
+                        source={require('../assets/custom-button.png')}
+                        style={{
+                          width: 50,
+                          height: 50,
+                          resizeMode: 'cover',
+                        }} 
+                    />
+                    <Text >Custom </Text>
+                  </TouchableOpacity>
+                </View>
+              )}
             </View>
             {error ? <Text style={{color: "red"}}>{error}</Text> : null}
             <TouchableOpacity

@@ -106,6 +106,13 @@ const createReminderScreenLight = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
   },
+  locationButtonsContainer : {
+    flexDirection: 'row',
+    paddingVertical: 15,
+    justifyContent: 'center',
+    alignItems: 'gap',
+    gap: 25,
+  },
 });
 
 export default createReminderScreenLight;

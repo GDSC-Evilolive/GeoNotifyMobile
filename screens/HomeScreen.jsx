@@ -89,6 +89,7 @@ const HomeScreen = () => {
     const [sortBy, setSortBy] = useState('Date'); 
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [highlightedSort, setHighlightedSort] = useState('Date'); 
+    
     const [metadata, setMetadata] = useState({
         numActive: 0,
         numInactive: 0,

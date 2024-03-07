@@ -26,6 +26,8 @@ const UpdateReminderScreen = ({ route }) => {
     const [dateOpen, setDateOpen] = useState(false);
     const [timeOpen, setTimeOpen] = useState(false);
     const [repeatOpen, setRepeatOpen] = useState(false);
+    const [locationEnabled, setLocationEnabled] = useState(false);
+    const [error, setError] = useState('');
     const repeatData = [
       { key: 'never', value: 'Never', disabled: false },
       { key: 'daily', value: 'Daily', disabled: false },
@@ -33,9 +35,16 @@ const UpdateReminderScreen = ({ route }) => {
       { key: 'weekends', value: 'Weekends', disabled: false },
       { key: 'weekly', value: 'Weekly', disabled: false },
     ];
+    
   
     useEffect(() => {
         console.log(id);
+        if (!title.trim()) {
+          setError('Title is required');
+          return; 
+        } else {
+          setError(''); 
+        }
       // Need to ask backend to make this request 
       axios.get(`https://gdsc-geonotify.wl.r.appspot.com/getReminder/${id}`)
         .then(response => {
@@ -121,29 +130,31 @@ const UpdateReminderScreen = ({ route }) => {
             
             <View style={styles.dateContainer}>
               <View style={styles.headerContainer}>
-                <View style={styles.justifyCenter}>
-                 <Image
-                    source={require('../assets/date-icon.png')}
-                    style={{
-                      width: 32,
-                      height: 32,
-                      resizeMode: 'cover',
-                    }} 
-                  />
-                  <Text style={styles.sectionTitle}>Date</Text>
-                  {dateOpen ? (
-                    <Text style={styles.sectionSubTitle}>
-                      {date.toDateString()}
-                    </Text>
-                  ) : null}
+                <View style={styles.iconContainer}>
+                  <Image
+                      source={require('../assets/date-icon.png')}
+                      style={{
+                        width: 32,
+                        height: 32,
+                        resizeMode: 'cover',
+                      }} 
+                    />
+                  <View style={styles.justifyCenter}>
+                    <Text style={styles.sectionTitle}>Date</Text>
+                    {dateOpen ? (
+                      <Text style={styles.sectionSubTitle}>
+                        {date.toDateString()}
+                      </Text>
+                    ) : null}
+                  </View>
                 </View>
-                <Switch
-                  value={dateOpen}
-                  onValueChange={() => {
-                    setDateOpen(!dateOpen);
-                  }}
-                  style={styles.toggleButton}
-                />
+                  <Switch
+                    value={dateOpen}
+                    onValueChange={() => {
+                      setDateOpen(!dateOpen);
+                    }}
+                    style={styles.toggleButton}
+                  />
               </View>
               <Collapsible collapsed={!dateOpen}>
                 <Calendar
@@ -158,21 +169,23 @@ const UpdateReminderScreen = ({ route }) => {
                   style={styles.calendar}
                 />
                 <View style={styles.headerContainer}>
-                  <View style={styles.justifyCenter}>
+                  <View style={styles.iconContainer}>
                     <Image
-                      source={require('../assets/time-icon.png')}
-                      style={{
-                        width: 32,
-                        height: 32,
-                        resizeMode: 'cover',
-                      }} 
-                    />
-                    <Text style={styles.sectionTitle}>Time</Text>
-                    {timeOpen ? (
-                      <Text style={styles.sectionSubTitle}>
-                        {date.getHours()}:{date.getMinutes()}
-                      </Text>
-                    ) : null}
+                        source={require('../assets/time-icon.png')}
+                        style={{
+                          width: 32,
+                          height: 32,
+                          resizeMode: 'cover',
+                        }} 
+                      />
+                    <View style={styles.justifyCenter}>
+                      <Text style={styles.sectionTitle}>Time</Text>
+                      {timeOpen ? (
+                        <Text style={styles.sectionSubTitle}>
+                          {date.getHours()}:{date.getMinutes()}
+                        </Text>
+                      ) : null}
+                    </View>
                   </View>
                   <Switch
                     value={timeOpen}
@@ -192,7 +205,7 @@ const UpdateReminderScreen = ({ route }) => {
                 </Collapsible>
 
                 <View style={styles.headerContainer}>
-                  <View style={styles.justifyCenter}>
+                  <View style={styles.iconContainer}>
                     <Image
                       source={require('../assets/repeat-icon.png')}
                       style={{
@@ -201,7 +214,9 @@ const UpdateReminderScreen = ({ route }) => {
                         resizeMode: 'cover',
                       }} 
                     />
-                    <Text style={styles.sectionTitle}>Repeat</Text>
+                    <View style={styles.justifyCenter}>
+                      <Text style={styles.sectionTitle}>Repeat</Text>
+                    </View>
                   </View>
                   <Switch
                     value={repeatOpen}
@@ -222,21 +237,53 @@ const UpdateReminderScreen = ({ route }) => {
 
             <View style={styles.locationContainer}>
               <View style={styles.headerContainer}>
-                <View style={styles.justifyCenter}>
-                <Image
+                <View style={styles.iconContainer}>
+                  <Image
                     source={require('../assets/location-icon.png')}
                     style={{
                       width: 32,
                       height: 32,
                       resizeMode: 'cover',
                     }} 
-                />
-                  <Text style={styles.sectionTitle}>Location</Text>
+                  />
+                  <View style={styles.justifyCenter}>
+                    <Text style={styles.sectionTitle}>Location</Text>
+                  </View>
                 </View>
-                <Switch style={styles.toggleButton} />
+                <Switch
+                  value={locationEnabled}
+                  onValueChange={() => setLocationEnabled(!locationEnabled)}
+                  style={styles.toggleButton}
+                />
               </View>
+              {locationEnabled && (
+                <View style={styles.locationButtonsContainer}>
+                  <TouchableOpacity onPress={() => {}} style={{gap: 8}}>
+                    <Image
+                      source={require('../assets/current-button.png')}
+                      style={{
+                        width: 50,
+                        height: 50,
+                        resizeMode: 'cover',
+                      }} 
+                    />
+                    <Text >Current</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => {}} style={{gap: 8}}>
+                    <Image
+                        source={require('../assets/custom-button.png')}
+                        style={{
+                          width: 50,
+                          height: 50,
+                          resizeMode: 'cover',
+                        }} 
+                    />
+                    <Text >Custom </Text>
+                  </TouchableOpacity>
+                </View>
+              )}
             </View>
-            
+            {error ? <Text style={{color: "red"}}>{error}</Text> : null}
             <TouchableOpacity onPress={handleUpdate} style={styles.createReminder}>
               <Text style={styles.createReminderText}>Update Reminder</Text>
             </TouchableOpacity>
