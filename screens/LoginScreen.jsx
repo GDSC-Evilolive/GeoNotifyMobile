@@ -46,11 +46,20 @@ const LoginScreen = () => {
 
   const handleSignIn = async () => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      
+      if (!user.emailVerified) {
+        setError('Please verify your email to login.');
+        console.log('Email is not verified');
+        return;
+      }
+      
+      console.log('Email is verified');
     } catch (err) {
       if (err.code === 'auth/invalid-credential') {
         setError('Unable to login. Please try again or sign up.');
-      } else if (err.code == 'auth/invalid-email') {
+      } else if (err.code === 'auth/invalid-email') {
         setError('Invalid email. Please try again or sign up.')
       } else {
         setError('An unexpected error occurred. Please try again later.');
@@ -96,13 +105,23 @@ const LoginScreen = () => {
                 </View>
                 {error && <Text style={{color:"red", marginTop: 15}}>{error}</Text>}
                 <View style={styles.signupContainer}>
-                  <Text style={styles.text}>Don't have an account?</Text>
-                  <TouchableOpacity
-                    onPress={() => {
-                      navigation.navigate('SignUp');
-                    }}>
-                    <Text style={styles.signupText}>Sign Up</Text>
-                  </TouchableOpacity>
+                  <View style={styles.navigateContainer}>
+                    <Text style={styles.text}>Don't have an account?</Text>
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate('SignUp');
+                      }}>
+                      <Text style={styles.signupText}> Sign Up</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.navigateContainer}>
+                    <Text style={styles.text}>Forgot Password?</Text>
+                    <TouchableOpacity onPress={() => {
+                        navigation.navigate('ForgotPassword');
+                      }}>
+                      <Text style={styles.signupText}> Reset Password</Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
             )}

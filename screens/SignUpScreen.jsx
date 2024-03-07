@@ -1,23 +1,13 @@
-import 'react-native-gesture-handler';
-import {
-  View,
-  Text,
-  SafeAreaView,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-  useColorScheme,
-} from 'react-native';
-import React, {useState} from 'react';
-import {createUserWithEmailAndPassword} from 'firebase/auth';
-import {auth} from '../firebase';
+import { View, Text, SafeAreaView, TextInput, TouchableOpacity, StyleSheet, Image, useColorScheme } from 'react-native';
+import React, { useState } from 'react';
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
+import { auth } from '../firebase';
 import axios from 'axios';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
-import {signUpScreenDark} from '../styleSheets/dark/signUpScreenDark';
-import {signUpScreenLight} from '../styleSheets/light/signUpScreenLight';
-// library.add(faArrowLeft);
+import { signUpScreenDark } from '../styleSheets/dark/signUpScreenDark';
+import { signUpScreenLight } from '../styleSheets/light/signUpScreenLight';
+
 const SignUpScreen = () => {
   const theme = useColorScheme();
   const isDarkMode = theme === 'dark';
@@ -28,6 +18,7 @@ const SignUpScreen = () => {
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
   const [error, setError] = useState(null);
+
   const validateEmail = email => {
     const re = /\S+@\S+\.\S+/;
     return re.test(email);
@@ -42,36 +33,43 @@ const SignUpScreen = () => {
       setError('Invalid email format');
       return;
     }
-    if (email && password) {
-      if (password.length < 6) {
-        setError('Password must be at least 6 characters long');
-        return;
-      }
-      if (!validateEmail(email)) {
-        setError('Invalid email format');
-        return;
-      }
-      try {
-        await createUserWithEmailAndPassword(auth, email, password);
-        const user = auth.currentUser;
-        axios
-          .post('https://gdsc-geonotify.wl.r.appspot.com/createUser', {
-            first_name: firstName,
-            last_name: lastName,
-            email: email,
-            uid: user.uid,
-          })
-          .then(res => {
-            console.log(res);
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      } catch (err) {
-        console.log(err);
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters long');
+      return;
+    }
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      
+      await sendEmailVerification(user);
+      
+      // Additional user data
+      const userData = {
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        uid: user.uid,
+        verified: false, // User will be verified after email confirmation
+      };
+      
+      // API call to store user data
+      await axios.post('https://gdsc-geonotify.wl.r.appspot.com/createUser', userData);
+
+      // Display message to check email for verification
+      navigation.navigate('Verify');
+
+    } catch (err) {
+      console.log(err);
+      // Handle error messages
+      if (err.code === 'auth/email-already-in-use') {
+        setError('Email is already in use.');
+      } else {
+        setError('An unexpected error occurred. Please try again later.');
       }
     }
   };
+
   return (
     <View>
       <SafeAreaView style={styles.background}>
@@ -87,6 +85,7 @@ const SignUpScreen = () => {
               style={styles.textInput}
               placeholderTextColor={'#6A6A73'}
             />
+            {/* Additional input fields */}
             <Text style={styles.inputHeader}>Last Name</Text>
             <TextInput
               value={lastName}
@@ -115,7 +114,8 @@ const SignUpScreen = () => {
               style={styles.textInput}
               placeholderTextColor={'#6A6A73'}
             />
-             {error && <Text style={{color:"red"}}>{error}</Text>}
+            {/* Display error message */}
+            {error && <Text style={{color:"red"}}>{error}</Text>}
             <TouchableOpacity
               onPress={handleSubmit}
               style={styles.signUpButton}>

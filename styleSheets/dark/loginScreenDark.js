@@ -11,10 +11,14 @@ export const loginScreenDark = StyleSheet.create({
   },
   signupContainer: {
     height: '50%',
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     gap: 5,
+  },
+  navigateContainer: {
+    flexDirection: 'row',
+    padding: 5,
   },
   background: {
     backgroundColor: '#181823',

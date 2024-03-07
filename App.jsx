@@ -5,10 +5,11 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from './screens/HomeScreen';
-import WelcomeScreen from './screens/WelcomeScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import LoginScreen from './screens/LoginScreen';
-import HomeNavigation from './navigation/HomeNavigation';
+import VerifyScreen from './screens/VerifyScreen';
+import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
+import ResetSuccessScreen from './screens/ResetSuccessScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import CreateReminderScreen from './screens/CreateReminderScreen';
 import UpdateReminderScreen from './screens/UpdateReminderScreen';
@@ -71,6 +72,21 @@ function App() {
           <Stack.Screen
             name="SignUp"
             component={SignUpScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Verify"
+            component={VerifyScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="ForgotPassword"
+            component={ForgotPasswordScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="ResetSuccess"
+            component={ResetSuccessScreen}
             options={{headerShown: false}}
           />
         </Stack.Navigator>
