@@ -21,7 +21,13 @@ const Stack = createStackNavigator();
 
 const MainTabs = () => {
   return (
-    <Tab.Navigator tabBar={props => <CustomTabBar {...props} currentScreen={props.state.routeNames[props.state.index]} /> }>
+    <Tab.Navigator
+      tabBar={props => (
+        <CustomTabBar
+          {...props}
+          currentScreen={props.state.routeNames[props.state.index]}
+        />
+      )}>
       <Tab.Screen
         name="Home"
         component={HomeScreen}
@@ -56,7 +62,6 @@ const MainTabs = () => {
   );
 };
 
-
 function App() {
   const {user} = useAuth();
   if (!user) {
@@ -77,16 +82,21 @@ function App() {
       </NavigationContainer>
     );
   } else {
-
     return (
-      <SafeAreaView style={{flex: 1}}>
-        <NavigationContainer>
-          <Stack.Navigator screenOptions={{ headerMode: 'none' }}>
-            <Stack.Screen name="MainTabs" component={MainTabs} />
-            <Stack.Screen name="UpdateReminder" component={UpdateReminderScreen} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </SafeAreaView>
+      <>
+        <SafeAreaView />
+        <View style={{flex: 1, paddingBottom: 5, backgroundColor: '#273B4A'}}>
+          <NavigationContainer>
+            <Stack.Navigator screenOptions={{headerMode: 'none'}}>
+              <Stack.Screen name="MainTabs" component={MainTabs} />
+              <Stack.Screen
+                name="UpdateReminder"
+                component={UpdateReminderScreen}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </View>
+      </>
     );
   }
 }

@@ -37,8 +37,7 @@ const ReminderItem = ({item}) => {
           <Text numberOfLines={1}> {item.description} </Text>
         </View>
       </View>
-
-        </View>
+    </View>
   );
 };
 
@@ -198,7 +197,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     Animated.spring(translateY, {
-      toValue: screenHeight - 470,
+      toValue: screenHeight - 450,
       useNativeDriver: false,
       stiffness: 1000, // Adjust the stiffness to control how fast the animation reacts to user input
       damping: 50,
@@ -272,7 +271,7 @@ const HomeScreen = () => {
               <View style={styles.flexRow}>
                 <Text style={styles.swipe}>
                   Swipe Left To Finish/Edit/Delete
-
+                </Text>
               </View>
               <View style={styles.flexRow}>
                 <Text style={styles.remindersText}> Reminders </Text>
