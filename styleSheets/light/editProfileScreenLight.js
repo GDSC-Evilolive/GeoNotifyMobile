@@ -12,10 +12,26 @@ const EditProfileScreenLight = StyleSheet.create({
     gap: 25,
   },
   textInput: {
-    height: 35,
+    height: 50,
     width: '100%',
     backgroundColor: '#FFF',
     borderRadius: 10,
+    paddingVertical: 14,
+    paddingHorizontal: 18,
+    fontWeight: '600',
+  },
+  updateButton: {
+    height: 50,
+    width: '100%',
+    backgroundColor: '#537FE7',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  updateText: {
+    color: '#FFF',
+    fontSize: 16,
+    fontWeight: '700',
   },
 });
 
